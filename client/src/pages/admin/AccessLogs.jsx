@@ -16,12 +16,8 @@ const AccessLogs = () => {
     try {
       setLoading(true);
       setError(null);
-      // Asumimos que el token se maneja globalmente en los interceptores de Axios
-      // Si usas localStorage directamente, asegúrate de enviarlo, ej: headers: { Authorization: `Bearer ${token}` }
-      const token = localStorage.getItem('token');
-      const response = await api.get('/api/logs/access', {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      // El token ya está configurado globalmente en 'api.js' a través del AuthContext
+      const response = await api.get('/api/logs/access');
       setLogs(response.data);
     } catch (err) {
       console.error('Error fetching logs:', err);
