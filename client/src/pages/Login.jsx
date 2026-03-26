@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/logo.png';
@@ -10,10 +10,43 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [wakeCountdown, setWakeCountdown] = useState(0);
+  const [wakeStatus, setWakeStatus] = useState(''); // 'pinging' | 'awake' | 'error' | ''
+  const wakeTimerRef = useRef(null);
   const captchaRef = useRef(null);
 
   const { login } = useAuth();
   const navigate = useNavigate();
+
+  // Cleanup timer on unmount
+  useEffect(() => {
+    return () => { if (wakeTimerRef.current) clearInterval(wakeTimerRef.current); };
+  }, []);
+
+  const handleWakeUp = useCallback(async () => {
+    if (wakeCountdown > 0 || wakeStatus === 'pinging') return;
+    setWakeStatus('pinging');
+    try {
+      const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+      await fetch(`${baseURL}/ping`);
+      setWakeStatus('awake');
+    } catch {
+      setWakeStatus('error');
+    }
+    // Start 60s countdown
+    setWakeCountdown(60);
+    wakeTimerRef.current = setInterval(() => {
+      setWakeCountdown(prev => {
+        if (prev <= 1) {
+          clearInterval(wakeTimerRef.current);
+          wakeTimerRef.current = null;
+          setWakeStatus('');
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+  }, [wakeCountdown, wakeStatus]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -80,6 +113,20 @@ const Login = () => {
             {loading ? 'Ingresando...' : 'Ingresar'}
           </button>
         </form>
+
+        {/* Easter egg: hidden wake-up button */}
+        <div className="wake-easter">
+          <button
+            type="button"
+            className={`wake-dot ${wakeStatus}`}
+            onClick={handleWakeUp}
+            aria-label="Despertar servidor"
+            disabled={wakeCountdown > 0 || wakeStatus === 'pinging'}
+          />
+          {wakeCountdown > 0 && (
+            <span className="wake-timer">{wakeCountdown}s</span>
+          )}
+        </div>
       </div>
     </div>
   );
