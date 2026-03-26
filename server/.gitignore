@@ -15,3 +15,4 @@ credentials.txt
 .idea
 .DS_Store
 *.sw?
+*.sql
