@@ -33,8 +33,8 @@ export const isAdmin = (req, res, next) => {
         return res.status(401).json({ message: 'No autenticado' });
     }
 
-    // Role ID 1 asume que es Administrador (ajustar si tu DB usa otro número)
-    if (req.user.role_id !== 1) {
+    // Role ID 1 asume que es Administrador (con conversión segura por si llega como string)
+    if (Number(req.user.role_id) !== 1) {
         return res.status(403).json({ message: 'Acceso denegado. Permisos de administrador requeridos.' });
     }
 
