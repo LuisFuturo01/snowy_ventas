@@ -163,6 +163,11 @@ a {
       opacity: 0.8;
     }
   }
+
+  @media (max-width: 480px) {
+    margin-bottom: var(--space-md);
+    h2 { font-size: var(--font-size-xl); }
+  }
 }
 
 /* --- Inputs ---*/
@@ -340,6 +345,13 @@ label {
       white-space: nowrap;
     }
 
+    @media (max-width: 480px) {
+      th, td {
+        padding: 10px 12px;
+        font-size: var(--font-size-xs);
+      }
+    }
+
     th {
       background: var(--bg-secondary);
       color: var(--text-secondary);
@@ -431,7 +443,7 @@ label {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-md);
-  @media (min-width: var(--tablet)) {
+  @media (min-width: 769px) {
     grid-template-columns: 1fr 1fr;
   }
 }

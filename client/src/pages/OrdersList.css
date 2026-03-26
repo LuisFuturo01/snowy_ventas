@@ -10,7 +10,7 @@
   grid-template-columns: 1fr;
   gap: var(--space-md);
 
-  @media (min-width: var(--tablet)) {
+  @media (min-width: 769px) {
     grid-template-columns: repeat(2, 1fr);
   }
 }
