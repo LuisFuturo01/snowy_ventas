@@ -12,6 +12,7 @@ import InventoryPurchase from './pages/InventoryPurchase';
 import AuditReport from './pages/AuditReport';
 import UsersCRUD from './pages/UsersCRUD';
 import RegisterClient from './pages/RegisterClient';
+import AccessLogs from './pages/admin/AccessLogs';
 import Layout from './components/Layout';
 import './styles/global.css';
 
@@ -64,6 +65,10 @@ function App() {
 
       <Route path="/usuarios" element={
         <ProtectedRoute><UsersCRUD /></ProtectedRoute>
+      } />
+
+      <Route path="/logs-acceso" element={
+        <ProtectedRoute><AccessLogs /></ProtectedRoute>
       } />
 
       <Route path="/venta-directa" element={

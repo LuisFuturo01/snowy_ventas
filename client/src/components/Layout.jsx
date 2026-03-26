@@ -37,6 +37,7 @@ const Layout = ({ children }) => {
     { divider: true, label: 'Administracion', show: isAdmin },
     { path: '/contabilidad', icon: 'chart', label: 'Contabilidad', show: isAdmin },
     { path: '/usuarios', icon: 'users', label: 'Usuarios', show: isAdmin },
+    { path: '/logs-acceso', icon: 'clock', label: 'Logs de Acceso', show: isAdmin },
     { path: '/auditoria', icon: 'search', label: 'Auditoria', show: isAdmin },
   ];
 
