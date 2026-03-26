@@ -26,3 +26,17 @@ export const verifyToken = (req, res, next) => {
         return res.status(401).json({ message: 'Token inválido o expirado.' });
     }
 };
+
+export const isAdmin = (req, res, next) => {
+    // Verificar si existe el usuario en la request (inyectado por verifyToken)
+    if (!req.user) {
+        return res.status(401).json({ message: 'No autenticado' });
+    }
+
+    // Role ID 1 asume que es Administrador (ajustar si tu DB usa otro número)
+    if (req.user.role_id !== 1) {
+        return res.status(403).json({ message: 'Acceso denegado. Permisos de administrador requeridos.' });
+    }
+
+    next();
+};

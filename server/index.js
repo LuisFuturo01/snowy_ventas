@@ -11,6 +11,7 @@ import orderRoutes from './src/routes/orderRoutes.js';
 import financeRoutes from './src/routes/financeRoutes.js';
 import inventoryRoutes from './src/routes/inventoryRoutes.js';
 import userRoutes from './src/routes/userRoutes.js';
+import logRoutes from './src/routes/logRoutes.js';
 
 dotenv.config();
 
@@ -30,6 +31,7 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/finance', financeRoutes);
 app.use('/api/inventory', inventoryRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/logs', logRoutes);
 
 // Ruta de prueba
 app.get('/ping', async (req, res) => {
