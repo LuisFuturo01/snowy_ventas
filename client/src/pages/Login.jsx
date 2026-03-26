@@ -13,6 +13,7 @@ const Login = () => {
   const [wakeCountdown, setWakeCountdown] = useState(0);
   const [wakeStatus, setWakeStatus] = useState(''); // 'pinging' | 'awake' | 'error' | ''
   const wakeTimerRef = useRef(null);
+  const pingTimerRef = useRef(null);
   const captchaRef = useRef(null);
 
   const { login } = useAuth();
@@ -20,27 +21,51 @@ const Login = () => {
 
   // Cleanup timer on unmount
   useEffect(() => {
-    return () => { if (wakeTimerRef.current) clearInterval(wakeTimerRef.current); };
+    return () => { 
+      if (wakeTimerRef.current) clearInterval(wakeTimerRef.current);
+      if (pingTimerRef.current) clearTimeout(pingTimerRef.current);
+    };
   }, []);
 
-  const handleWakeUp = useCallback(async () => {
+  const handleWakeUp = useCallback(() => {
     if (wakeCountdown > 0 || wakeStatus === 'pinging') return;
     setWakeStatus('pinging');
-    try {
-      const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
-      await fetch(`${baseURL}/ping`);
-      setWakeStatus('awake');
-    } catch {
-      setWakeStatus('error');
-    }
-    // Start 60s countdown
     setWakeCountdown(60);
+
+    const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+
+    const checkStatus = async () => {
+      try {
+        const res = await fetch(`${baseURL}/ping`);
+        if (res.ok) {
+          setWakeStatus('awake');
+          setWakeCountdown(0);
+          if (wakeTimerRef.current) {
+            clearInterval(wakeTimerRef.current);
+            wakeTimerRef.current = null;
+          }
+          return;
+        }
+      } catch {
+        // Ignorar errores de red para seguir reintentando
+      }
+      
+      // Programar siguiente ping si aún hay tiempo
+      if (wakeTimerRef.current) {
+        pingTimerRef.current = setTimeout(checkStatus, 4000);
+      }
+    };
+
+    checkStatus();
+
+    // Start 60s countdown
     wakeTimerRef.current = setInterval(() => {
       setWakeCountdown(prev => {
         if (prev <= 1) {
           clearInterval(wakeTimerRef.current);
           wakeTimerRef.current = null;
-          setWakeStatus('');
+          if (pingTimerRef.current) clearTimeout(pingTimerRef.current);
+          setWakeStatus(curr => (curr === 'pinging' ? 'error' : curr));
           return 0;
         }
         return prev - 1;
