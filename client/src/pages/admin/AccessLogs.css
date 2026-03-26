@@ -115,3 +115,24 @@
 .empty-state p {
   font-size: var(--font-size-base);
 }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-md);
+  }
+
+  .table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .data-table th, 
+  .data-table td {
+    white-space: nowrap;
+    padding: var(--space-md);
+  }
+}

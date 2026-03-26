@@ -27,6 +27,11 @@ import menuIcon from '../assets/icons/menu.svg';
 import xIcon from '../assets/icons/x.svg';
 import sunIcon from '../assets/icons/sun.svg';
 import moonIcon from '../assets/icons/moon.svg';
+import clockIcon from '../assets/icons/clock.svg';
+import refreshCwIcon from '../assets/icons/refresh-cw.svg';
+import alertCircleIcon from '../assets/icons/alert-circle.svg';
+import databaseIcon from '../assets/icons/database.svg';
+import loaderIcon from '../assets/icons/loader.svg';
 
 const icons = {
   cart: cartIcon,
@@ -56,6 +61,15 @@ const icons = {
   x: xIcon,
   sun: sunIcon,
   moon: moonIcon,
+  clock: clockIcon,
+  'refresh-cw': refreshCwIcon,
+  'alert-circle': alertCircleIcon,
+  database: databaseIcon,
+  loader: loaderIcon,
+  chrome: globeIcon,
+  firefox: globeIcon,
+  compass: globeIcon,
+  edge: globeIcon,
 };
 
 const Icon = ({ name, size = 20, color, className = '' }) => {
