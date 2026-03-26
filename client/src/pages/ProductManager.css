@@ -1,0 +1,27 @@
+@import '../styles/variables.css';
+
+.manager-page {
+  max-width: 900px;
+  margin: 0 auto;
+
+  .form-card {
+    margin-bottom: var(--space-xl);
+
+    h3 {
+      font-size: var(--font-size-lg);
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: var(--space-md);
+    }
+  }
+
+  .btn-group {
+    display: flex;
+    gap: var(--space-sm);
+    margin-top: var(--space-lg);
+
+    .btn {
+      flex: 1;
+    }
+  }
+}

@@ -1,0 +1,87 @@
+@import '../styles/variables.css';
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: var(--space-md);
+  animation: fadeIn 0.15s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl) var(--space-xl) var(--space-lg);
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+  animation: slideUp 0.2s ease;
+}
+
+.modal-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-md);
+
+  .modal-confirm & {
+    background: var(--accent-glow);
+    img { filter: invert(56%) sepia(85%) saturate(1500%) hue-rotate(170deg) brightness(100%) contrast(101%); }
+  }
+  .modal-danger & {
+    background: var(--error-bg);
+    img { filter: invert(42%) sepia(82%) saturate(2000%) hue-rotate(330deg) brightness(100%) contrast(101%); }
+  }
+  .modal-success & {
+    background: var(--success-bg);
+    img { filter: invert(70%) sepia(50%) saturate(500%) hue-rotate(100deg) brightness(100%) contrast(101%); }
+  }
+  .modal-warning & {
+    background: var(--warning-bg);
+    img { filter: invert(70%) sepia(80%) saturate(500%) hue-rotate(10deg) brightness(100%) contrast(101%); }
+  }
+}
+
+.modal-title {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.modal-message {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: var(--space-xl);
+}
+
+.modal-actions {
+  display: flex;
+  gap: var(--space-sm);
+
+  .btn {
+    flex: 1;
+    margin: 0;
+  }
+}

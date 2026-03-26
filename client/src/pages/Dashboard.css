@@ -1,0 +1,124 @@
+@import '../styles/variables.css';
+
+.dashboard-page {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.dashboard-welcome {
+  margin-bottom: var(--space-xl);
+
+  h1 {
+    font-size: var(--font-size-2xl);
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: var(--space-xs);
+  }
+
+  p {
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+  }
+}
+
+.dashboard-section {
+  margin-bottom: var(--space-xl);
+}
+
+.section-title {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--text-muted);
+  margin-bottom: var(--space-md);
+  padding-left: var(--space-xs);
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-sm);
+
+  @media (min-width: var(--tablet)) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+}
+
+.menu-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  cursor: pointer;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0, 168, 232, 0.03), transparent);
+    opacity: 0;
+    transition: opacity var(--transition);
+  }
+
+  &:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md), var(--shadow-glow);
+
+    &::before { opacity: 1; }
+
+    .card-arrow {
+      opacity: 1;
+      transform: translateX(0);
+      color: var(--accent);
+    }
+  }
+
+  .card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    img {
+      filter: invert(56%) sepia(85%) saturate(1500%) hue-rotate(170deg) brightness(100%) contrast(101%);
+    }
+  }
+
+  .card-body {
+    flex: 1;
+    min-width: 0;
+
+    h4 {
+      font-size: var(--font-size-base);
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 2px;
+    }
+
+    p {
+      font-size: var(--font-size-sm);
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+  }
+
+  .card-arrow {
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: all var(--transition);
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+}
