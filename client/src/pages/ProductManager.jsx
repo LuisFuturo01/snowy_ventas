@@ -101,9 +101,9 @@ const ProductManager = () => {
       <button className="btn-back" onClick={() => navigate('/dashboard')}>
         <Icon name="arrow-left" size={16} /> Volver
       </button>
-      <div className="page-header" style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <div className="page-header" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: '10px' }}>
         <h2><Icon name="box" size={24} /> Gestion de Productos</h2>
-        <button onClick={exportPDF} className="btn btn-outline" style={{ width: 'auto', marginTop: 0 }}>
+        <button onClick={exportPDF} className="btn btn-outline" style={{ width: 'auto', margin: 0 }}>
           <Icon name="printer" size={16} /> Exportar Inventario (PDF)
         </button>
       </div>
